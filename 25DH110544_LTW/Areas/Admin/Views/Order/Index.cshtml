@@ -1,0 +1,49 @@
+﻿@model IEnumerable<_25DH110544_LTW.Models.Order>
+
+@{
+    ViewBag.Title = "Quản lý đơn hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>QUẢN LÝ ĐƠN HÀNG</h2>
+
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>Mã đơn</th>
+        <th>Ngày đặt</th>
+        <th>Khách hàng</th>
+        <th>Tổng tiền</th>
+        <th>Địa chỉ giao hàng</th>
+        <th>Thao tác</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.OrderID</td>
+            <td>
+                @if (item.OrderDate != null)
+                {
+                    @Convert.ToDateTime(item.OrderDate).ToString("dd/MM/yyyy HH:mm")
+                }
+            </td>
+            <td>
+                @if (item.Customer != null)
+                {
+                    @item.Customer.CustomerName
+                }
+                else
+                {
+                    @:Khách vãng lai
+                }
+            </td>
+            <td>@item.TotalAmount</td>
+            <td>@item.AddressDelivery</td>
+            <td>
+                @Html.ActionLink("Chi tiết", "Details", new { id = item.OrderID }, new { @class = "btn btn-info btn-sm" }) |
+                @Html.ActionLink("Cập nhật", "Edit", new { id = item.OrderID }, new { @class = "btn btn-primary btn-sm" })
+            </td>
+        </tr>
+    }
+
+</table>
