@@ -1,0 +1,44 @@
+@model MyStoreMVC5.Models.ProductSearchVm
+@{ ViewBag.Title = "Sản phẩm"; }
+<section class="hero">
+  <h1>Khám phá sản phẩm MyStore</h1>
+  <p>Sản phẩm chất lượng, mua sắm dễ dàng. Lọc theo danh mục, tìm theo tên và sắp xếp theo nhu cầu.</p>
+  <a class="button" href="#products">Xem sản phẩm</a>
+</section>
+<section id="products">
+  <h2>Danh sách sản phẩm</h2>
+  <form method="get" action="@Url.Action("ProductList","Home")" class="toolbar">
+    <div class="field"><label for="search">Từ khóa</label><input id="search" name="Search" value="@Model.Search" placeholder="Tên, mô tả, danh mục" /></div>
+    <div class="field"><label for="category">Danh mục</label>
+      <select id="category" name="CategoryId">
+        <option value="">Tất cả</option>
+        @foreach (var cat in Model.Categories) {
+          <option value="@cat.CategoryID" @(Model.CategoryId == cat.CategoryID ? "selected" : "")>@cat.CategoryName</option>
+        }
+      </select>
+    </div>
+    <div class="field"><label for="min">Giá từ (₫)</label><input id="min" type="number" min="0" name="MinPrice" value="@Model.MinPrice" /></div>
+    <div class="field"><label for="max">Đến (₫)</label><input id="max" type="number" min="0" name="MaxPrice" value="@Model.MaxPrice" /></div>
+    <div class="field"><label for="sort">Sắp xếp</label>
+      <select id="sort" name="Sort">
+        <option value="newest" @(Model.Sort=="newest"?"selected":"")>Mới nhất</option>
+        <option value="price_asc" @(Model.Sort=="price_asc"?"selected":"")>Giá tăng dần</option>
+        <option value="price_desc" @(Model.Sort=="price_desc"?"selected":"")>Giá giảm dần</option>
+        <option value="name_asc" @(Model.Sort=="name_asc"?"selected":"")>Tên A-Z</option>
+        <option value="name_desc" @(Model.Sort=="name_desc"?"selected":"")>Tên Z-A</option>
+      </select>
+    </div>
+    <button type="submit">Lọc sản phẩm</button>
+  </form>
+  <p class="muted">Tìm thấy @Model.TotalCount sản phẩm.</p>
+  @if (Model.Products.Count == 0) { <div class="empty">Không tìm thấy sản phẩm phù hợp.</div> }
+  else {
+    <div class="grid-products">@foreach (var product in Model.Products) { @Html.Partial("~/Views/Shared/_ProductCard.cshtml",product) }</div>
+    <div class="pagination">
+      @for (int i = 1; i <= Model.TotalPages; i++) {
+        <a class="page @(i == Model.Page ? "active" : "")"
+            href="@Url.Action("ProductList","Home",new { Search=Model.Search,CategoryId=Model.CategoryId,MinPrice=Model.MinPrice,MaxPrice=Model.MaxPrice,Sort=Model.Sort,Page=i })">@i</a>
+      }
+    </div>
+  }
+</section>

@@ -1,0 +1,17 @@
+@model MyStoreMVC5.Models.Product
+@{ bool isEdit=Model.ProductID>0; ViewBag.Title=isEdit?"Sửa sản phẩm":"Thêm sản phẩm"; }
+<div class="form-card">
+<h1>@ViewBag.Title</h1>
+@using(Html.BeginForm(isEdit?"Edit":"Create","Products",FormMethod.Post,new { enctype="multipart/form-data" })) {
+ @Html.AntiForgeryToken() @Html.HiddenFor(x=>x.ProductID) @Html.ValidationSummary()
+ <div class="field">@Html.LabelFor(x=>x.ProductName,"Tên sản phẩm") @Html.TextBoxFor(x=>x.ProductName) @Html.ValidationMessageFor(x=>x.ProductName)</div>
+ <div class="field">@Html.LabelFor(x=>x.CategoryID,"Danh mục") @Html.DropDownListFor(x=>x.CategoryID,(SelectList)ViewBag.Categories,"Chọn danh mục") @Html.ValidationMessageFor(x=>x.CategoryID)</div>
+ <div class="field">@Html.LabelFor(x=>x.ProductDescription,"Mô tả") @Html.TextAreaFor(x=>x.ProductDescription) @Html.ValidationMessageFor(x=>x.ProductDescription)</div>
+ <div class="field">@Html.LabelFor(x=>x.ProductPrice,"Giá bán (₫)") @Html.TextBoxFor(x=>x.ProductPrice,new { type="number",min="1",step="1" }) @Html.ValidationMessageFor(x=>x.ProductPrice)</div>
+ <div class="field"><label for="image">Ảnh sản phẩm (JPG/PNG/WebP, tối đa 5 MB)</label><input type="file" id="image" name="image" accept="image/jpeg,image/png,image/webp" /></div>
+ if(!string.IsNullOrWhiteSpace(Model.ProductImage)) {
+   <p>Ảnh hiện tại:</p><img width="150" src="@Url.Content("~"+Model.ProductImage)" alt="@Model.ProductName" />
+ }
+ <div class="stack"><button type="submit">Lưu sản phẩm</button><a href="@Url.Action("Index")">Hủy</a></div>
+}
+</div>

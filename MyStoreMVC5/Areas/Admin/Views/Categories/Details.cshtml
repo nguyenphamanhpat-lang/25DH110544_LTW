@@ -1,0 +1,5 @@
+@model MyStoreMVC5.Models.Category
+@{ ViewBag.Title = "Chi tiết danh mục"; }
+<h1>Danh mục #@Model.CategoryID</h1><p>Tên: <strong>@Model.CategoryName</strong></p>
+<p class="stack"><a class="button" href="@Url.Action("Edit",new { id=Model.CategoryID })">Sửa</a>
+<a href="@Url.Action("Index")">Danh sách</a></p>

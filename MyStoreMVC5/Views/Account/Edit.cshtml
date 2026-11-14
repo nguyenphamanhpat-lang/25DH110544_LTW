@@ -1,0 +1,13 @@
+@model MyStoreMVC5.Models.ProfileVm
+@{ ViewBag.Title = "Thông tin cá nhân"; }
+<div class="form-card">
+  <h1>Thông tin cá nhân</h1>
+  @using (Html.BeginForm("Edit","Account",FormMethod.Post)) {
+    @Html.AntiForgeryToken() @Html.ValidationSummary()
+    <div class="field">@Html.LabelFor(x=>x.CustomerName) @Html.TextBoxFor(x=>x.CustomerName) @Html.ValidationMessageFor(x=>x.CustomerName)</div>
+    <div class="field">@Html.LabelFor(x=>x.CustomerPhone) @Html.TextBoxFor(x=>x.CustomerPhone) @Html.ValidationMessageFor(x=>x.CustomerPhone)</div>
+    <div class="field">@Html.LabelFor(x=>x.CustomerEmail) @Html.TextBoxFor(x=>x.CustomerEmail) @Html.ValidationMessageFor(x=>x.CustomerEmail)</div>
+    <div class="field">@Html.LabelFor(x=>x.CustomerAddress) @Html.TextAreaFor(x=>x.CustomerAddress) @Html.ValidationMessageFor(x=>x.CustomerAddress)</div>
+    <button type="submit">Lưu thông tin</button>
+  }
+</div>

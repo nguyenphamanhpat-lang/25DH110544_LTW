@@ -1,0 +1,43 @@
+@{
+    var title = ViewBag.Title ?? "MyStore";
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>@title - MyStore</title>
+  <link href="@Url.Content("~/Content/site.css")" rel="stylesheet" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="@Url.Action("Index", "Home", new { area = "" })">My<span>Store</span></a>
+      <nav class="nav-links">
+        <a href="@Url.Action("Index","Home",new { area="" })">Trang chủ</a>
+        <a href="@Url.Action("ProductList","Home",new { area="" })">Sản phẩm</a>
+        <a href="@Url.Action("Index","Cart",new { area="" })">Giỏ hàng</a>
+        @if (Request.IsAuthenticated)
+        {
+          <a href="@Url.Action("OrderHistory","Order",new { area="" })">Đơn của tôi</a>
+          <a href="@Url.Action("Edit","Account",new { area="" })">Hồ sơ</a>
+          <form class="inline-form" action="@Url.Action("Logout","Account",new { area="" })" method="post">
+            @Html.AntiForgeryToken()<button class="text-button">Đăng xuất (@User.Identity.Name)</button>
+          </form>
+        }
+        else
+        {
+          <a href="@Url.Action("Login","Account",new { area="" })">Đăng nhập</a>
+          <a class="button button-small" href="@Url.Action("Register","Account",new { area="" })">Đăng ký</a>
+        }
+      </nav>
+    </div>
+  </header>
+  <main class="container main">
+    @if (TempData["Notice"] != null) { <div class="notice">@TempData["Notice"]</div> }
+    @if (TempData["Error"] != null) { <div class="error">@TempData["Error"]</div> }
+    @RenderBody()
+  </main>
+  <footer class="footer"><div class="container">© @DateTime.Now.Year MyStore · ASP.NET MVC5 / Entity Framework 6</div></footer>
+</body>
+</html>

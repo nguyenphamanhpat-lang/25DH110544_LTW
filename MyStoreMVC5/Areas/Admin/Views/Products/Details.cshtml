@@ -1,0 +1,13 @@
+@model MyStoreMVC5.Models.Product
+@{ ViewBag.Title = "Chi tiết sản phẩm"; }
+<h1>@Model.ProductName</h1>
+<div class="detail">
+  <div>@if(!string.IsNullOrWhiteSpace(Model.ProductImage)) {
+   <img class="product-image" alt="@Model.ProductName" src="@Url.Content("~"+Model.ProductImage)" />
+  } else { <div class="product-image no-image">MyStore</div> }</div>
+  <div><p><strong>ID:</strong> @Model.ProductID</p>
+  <p><strong>Danh mục:</strong> @(Model.Category == null ? "—" : Model.Category.CategoryName)</p>
+  <p><strong>Mô tả:</strong> @Model.ProductDescription</p>
+  <p><strong>Giá:</strong> @Model.ProductPrice.ToString("N0") ₫</p>
+  <div class="stack"><a class="button" href="@Url.Action("Edit",new { id=Model.ProductID })">Sửa</a><a href="@Url.Action("Index")">Quay lại</a></div></div>
+</div>

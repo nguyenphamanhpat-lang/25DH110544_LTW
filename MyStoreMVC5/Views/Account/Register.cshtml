@@ -1,0 +1,16 @@
+@model MyStoreMVC5.Models.RegisterVm
+@{ ViewBag.Title = "Đăng ký"; }
+<div class="form-card">
+  <h1>Đăng ký tài khoản</h1>
+  @using (Html.BeginForm("Register","Account",FormMethod.Post)) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+    <div class="field">@Html.LabelFor(x=>x.Username) @Html.TextBoxFor(x=>x.Username, new { autocomplete="username" }) @Html.ValidationMessageFor(x=>x.Username)</div>
+    <div class="field">@Html.LabelFor(x=>x.Password) @Html.PasswordFor(x=>x.Password, new { autocomplete="new-password" }) @Html.ValidationMessageFor(x=>x.Password)</div>
+    <div class="field">@Html.LabelFor(x=>x.CustomerName) @Html.TextBoxFor(x=>x.CustomerName) @Html.ValidationMessageFor(x=>x.CustomerName)</div>
+    <div class="field">@Html.LabelFor(x=>x.CustomerPhone) @Html.TextBoxFor(x=>x.CustomerPhone) @Html.ValidationMessageFor(x=>x.CustomerPhone)</div>
+    <div class="field">@Html.LabelFor(x=>x.CustomerEmail) @Html.TextBoxFor(x=>x.CustomerEmail) @Html.ValidationMessageFor(x=>x.CustomerEmail)</div>
+    <div class="field">@Html.LabelFor(x=>x.CustomerAddress) @Html.TextAreaFor(x=>x.CustomerAddress) @Html.ValidationMessageFor(x=>x.CustomerAddress)</div>
+    <button type="submit">Tạo tài khoản</button>
+  }
+</div>

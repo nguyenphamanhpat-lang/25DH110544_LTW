@@ -1,0 +1,18 @@
+@model MyStoreMVC5.Models.Product
+<article class="product-card">
+  @if (!string.IsNullOrWhiteSpace(Model.ProductImage))
+  { <img class="product-image" src="@Url.Content(Model.ProductImage.StartsWith("/") ? "~" + Model.ProductImage : Model.ProductImage)" alt="@Model.ProductName" /> }
+  else { <div class="product-image no-image">MyStore</div> }
+  <div class="product-body">
+    <div class="muted small">@(Model.Category != null ? Model.Category.CategoryName : "Sản phẩm")</div>
+    <h3><a href="@Url.Action("ProductDetail","Home",new { area="", id=Model.ProductID })">@Model.ProductName</a></h3>
+    <p class="muted small">@((Model.ProductDescription ?? "").Length > 90 ? Model.ProductDescription.Substring(0,90) + "…" : Model.ProductDescription)</p>
+    <div class="price">@Model.ProductPrice.ToString("N0") ₫</div>
+    <form action="@Url.Action("AddItem","Cart",new { area="" })" method="post">
+      @Html.AntiForgeryToken()
+      <input type="hidden" name="productId" value="@Model.ProductID" />
+      <input type="hidden" name="quantity" value="1" />
+      <button type="submit">Thêm vào giỏ</button>
+    </form>
+  </div>
+</article>

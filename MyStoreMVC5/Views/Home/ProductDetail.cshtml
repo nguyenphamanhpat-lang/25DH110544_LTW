@@ -1,0 +1,24 @@
+@model MyStoreMVC5.Models.Product
+@{ ViewBag.Title = Model.ProductName; }
+<p><a href="@Url.Action("ProductList","Home")">← Quay lại danh sách</a></p>
+<section class="detail">
+  <div>
+    @if (!string.IsNullOrWhiteSpace(Model.ProductImage))
+    { <img class="product-image" src="@Url.Content(Model.ProductImage.StartsWith("/") ? "~" + Model.ProductImage : Model.ProductImage)" alt="@Model.ProductName" /> }
+    else { <div class="product-image no-image">MyStore</div> }
+  </div>
+  <div>
+    <div class="muted">@(Model.Category != null ? Model.Category.CategoryName : "Sản phẩm")</div>
+    <h1>@Model.ProductName</h1>
+    <div class="price">@Model.ProductPrice.ToString("N0") ₫</div>
+    <p>@Model.ProductDescription</p>
+    <form action="@Url.Action("AddItem","Cart")" method="post">
+      @Html.AntiForgeryToken()
+      <input type="hidden" name="productId" value="@Model.ProductID" />
+      <div class="field" style="max-width:160px"><label for="quantity">Số lượng</label>
+        <input id="quantity" type="number" name="quantity" min="1" max="99" value="1" required />
+      </div>
+      <button type="submit">Thêm vào giỏ hàng</button>
+    </form>
+  </div>
+</section>

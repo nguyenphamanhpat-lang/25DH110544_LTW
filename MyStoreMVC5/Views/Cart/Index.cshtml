@@ -1,0 +1,40 @@
+@model List<MyStoreMVC5.Models.CartLine>
+@{ ViewBag.Title = "Giỏ hàng"; }
+<h1>Giỏ hàng</h1>
+@if (!Model.Any()) {
+  <div class="empty"><h2>Giỏ hàng trống</h2><p>Hãy chọn một vài sản phẩm trước khi thanh toán.</p>
+    <a class="button" href="@Url.Action("Index","Home")">Tiếp tục mua sắm</a>
+  </div>
+} else {
+  <div class="table-wrap"><table>
+    <thead><tr><th>Sản phẩm</th><th>Đơn giá</th><th>Số lượng</th><th>Thành tiền</th><th></th></tr></thead>
+    <tbody>
+      @foreach (var item in Model) {
+        <tr><td><a href="@Url.Action("ProductDetail","Home",new { id=item.ProductID })">@item.ProductName</a></td>
+          <td>@item.UnitPrice.ToString("N0") ₫</td>
+          <td>
+            <form class="stack" action="@Url.Action("UpdateItem","Cart")" method="post">
+              @Html.AntiForgeryToken()
+              <input type="hidden" name="productId" value="@item.ProductID" />
+              <input type="number" style="width:85px" name="quantity" min="0" max="99" value="@item.Quantity" />
+              <button type="submit">Cập nhật</button>
+            </form>
+          </td>
+          <td><strong>@item.Amount.ToString("N0") ₫</strong></td>
+          <td><form action="@Url.Action("RemoveItem","Cart")" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="productId" value="@item.ProductID" />
+            <button class="button-danger" type="submit">Xóa</button>
+          </form></td>
+        </tr>
+      }
+    </tbody>
+  </table></div>
+  <div class="summary">
+    <h2>Tổng cộng: @Model.SumValue().ToString("N0") ₫</h2>
+    <div class="stack">
+      <a class="button button-neutral" href="@Url.Action("Index","Home")">Mua thêm</a>
+      <a class="button" href="@Url.Action("Checkout","Order")">Tiến hành đặt hàng</a>
+    </div>
+  </div>
+}

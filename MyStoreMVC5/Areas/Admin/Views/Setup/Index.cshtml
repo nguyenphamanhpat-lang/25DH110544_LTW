@@ -1,0 +1,12 @@
+@model MyStoreMVC5.Models.AdminUserVm
+@{ ViewBag.Title = "Khởi tạo Admin"; }
+<div class="form-card">
+  <h1>Khởi tạo Admin đầu tiên</h1>
+  <p>Chỉ có thể sử dụng từ máy cục bộ khi chưa có tài khoản Admin.</p>
+  @using(Html.BeginForm("Index","Setup",FormMethod.Post,new { area="Admin" })) {
+    @Html.AntiForgeryToken() @Html.ValidationSummary()
+    <div class="field">@Html.LabelFor(x=>x.Username) @Html.TextBoxFor(x=>x.Username) @Html.ValidationMessageFor(x=>x.Username)</div>
+    <div class="field">@Html.LabelFor(x=>x.Password) @Html.PasswordFor(x=>x.Password, new { autocomplete="new-password" }) @Html.ValidationMessageFor(x=>x.Password)</div>
+    <button type="submit">Tạo Admin</button>
+  }
+</div>

@@ -1,0 +1,25 @@
+@model MyStoreMVC5.Models.CheckoutVm
+@{ ViewBag.Title = "Thanh toán"; }
+<h1>Xác nhận đặt hàng</h1>
+<div class="detail">
+  <div>
+    <h2>Thông tin nhận hàng</h2>
+    @using (Html.BeginForm("Checkout","Order",FormMethod.Post)) {
+      @Html.AntiForgeryToken() @Html.ValidationSummary()
+      <div class="field">@Html.LabelFor(x=>x.AddressDelivery)
+      @Html.TextAreaFor(x=>x.AddressDelivery, new { required="required", maxlength="1000" })
+      @Html.ValidationMessageFor(x=>x.AddressDelivery)</div>
+      <p class="muted">Phương thức thanh toán: <strong>Thanh toán khi nhận hàng (COD)</strong>.</p>
+      <button type="submit">Xác nhận đặt hàng</button>
+    }
+  </div>
+  <div>
+    <h2>Đơn hàng của bạn</h2>
+    <div class="table-wrap"><table>
+      @foreach (var line in Model.Items) {
+        <tr><td>@line.ProductName × @line.Quantity</td><td>@line.Amount.ToString("N0") ₫</td></tr>
+      }
+    </table></div>
+    <h2>Tổng tiền: @Model.Total.ToString("N0") ₫</h2>
+  </div>
+</div>

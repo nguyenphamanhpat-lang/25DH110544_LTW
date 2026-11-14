@@ -1,0 +1,38 @@
+@model MyStoreMVC5.Models.ProductSearchVm
+@{ ViewBag.Title = "Quản lý sản phẩm"; }
+<div class="stack" style="justify-content:space-between"><h1>Quản lý sản phẩm</h1>
+<a class="button" href="@Url.Action("Create")">+ Thêm sản phẩm</a></div>
+<form class="toolbar" method="get">
+  <div class="field"><label>Từ khóa</label><input type="search" name="Search" value="@Model.Search" /></div>
+  <div class="field"><label>Danh mục</label><select name="CategoryId">
+  <option value="">Tất cả</option>
+  @foreach(var cat in Model.Categories) { <option value="@cat.CategoryID" @(Model.CategoryId==cat.CategoryID?"selected":"")>@cat.CategoryName</option> }
+  </select></div>
+  <div class="field"><label>Từ giá</label><input type="number" min="0" name="MinPrice" value="@Model.MinPrice" /></div>
+  <div class="field"><label>Đến giá</label><input type="number" min="0" name="MaxPrice" value="@Model.MaxPrice" /></div>
+  <div class="field"><label>Sắp xếp</label><select name="Sort">
+    <option value="newest" @(Model.Sort=="newest"?"selected":"")>Mới nhất</option>
+    <option value="price_asc" @(Model.Sort=="price_asc"?"selected":"")>Giá tăng</option>
+    <option value="price_desc" @(Model.Sort=="price_desc"?"selected":"")>Giá giảm</option>
+    <option value="name_asc" @(Model.Sort=="name_asc"?"selected":"")>Tên A-Z</option>
+    <option value="name_desc" @(Model.Sort=="name_desc"?"selected":"")>Tên Z-A</option>
+  </select></div><button type="submit">Tìm</button>
+</form>
+<p class="muted">@Model.TotalCount sản phẩm.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>ID</th><th>Tên sản phẩm</th><th>Danh mục</th><th>Giá bán</th><th>Tác vụ</th></tr></thead>
+@foreach(var product in Model.Products) {
+<tr><td>@product.ProductID</td><td>@product.ProductName</td>
+<td>@(product.Category == null ? "—" : product.Category.CategoryName)</td><td>@product.ProductPrice.ToString("N0") ₫</td>
+<td class="actions">
+<a href="@Url.Action("Details",new { id=product.ProductID })">Xem</a>
+<a href="@Url.Action("Edit",new { id=product.ProductID })">Sửa</a>
+<a href="@Url.Action("Delete",new { id=product.ProductID })">Xóa</a>
+</td></tr>
+}
+</table></div>
+<div class="pagination">
+@for(int i=1;i<=Model.TotalPages;i++) {
+ <a class="page @(i==Model.Page?"active":"")" href="@Url.Action("Index",new { Search=Model.Search,CategoryId=Model.CategoryId,MinPrice=Model.MinPrice,MaxPrice=Model.MaxPrice,Sort=Model.Sort,Page=i })">@i</a>
+}
+</div>

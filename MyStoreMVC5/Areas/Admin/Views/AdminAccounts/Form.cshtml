@@ -1,0 +1,13 @@
+@model MyStoreMVC5.Models.AdminUserVm
+@{ bool isEdit=ViewContext.RouteData.Values["action"].ToString()=="Edit"; ViewBag.Title=isEdit?"Sửa Admin":"Thêm Admin"; }
+<div class="form-card">
+<h1>@ViewBag.Title</h1>
+@using(Html.BeginForm(isEdit?"Edit":"Create","AdminAccounts",FormMethod.Post)) {
+ @Html.AntiForgeryToken() @Html.ValidationSummary()
+ if(isEdit) { @Html.HiddenFor(x=>x.Username) <p>Tài khoản: <strong>@Model.Username</strong></p> }
+ else { <div class="field">@Html.LabelFor(x=>x.Username,"Tên đăng nhập") @Html.TextBoxFor(x=>x.Username) @Html.ValidationMessageFor(x=>x.Username)</div> }
+ <div class="field"><label for="Password">@(isEdit?"Mật khẩu mới (để trống nếu giữ nguyên)":"Mật khẩu (ít nhất 8 ký tự)")</label>
+ @Html.PasswordFor(x=>x.Password, new { autocomplete="new-password" }) @Html.ValidationMessageFor(x=>x.Password)</div>
+ <button type="submit">Lưu tài khoản</button> <a href="@Url.Action("Index")">Hủy</a>
+}
+</div>

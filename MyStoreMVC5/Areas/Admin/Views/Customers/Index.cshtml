@@ -1,0 +1,21 @@
+@model List<MyStoreMVC5.Models.Customer>
+@{ ViewBag.Title="Khách hàng"; }
+<h1>Quản lý khách hàng</h1>
+<form class="toolbar" method="get">
+<div class="field"><label>Tên, số điện thoại, tài khoản</label><input name="search" value="@ViewBag.Search" /></div>
+<div class="field"><label>Sắp xếp</label><select name="sort">
+<option value="name" @(ViewBag.Sort=="name"?"selected":"")>Tên A-Z</option>
+<option value="name_desc" @(ViewBag.Sort=="name_desc"?"selected":"")>Tên Z-A</option>
+<option value="newest" @(ViewBag.Sort=="newest"?"selected":"")>Mới nhất</option>
+</select></div>
+<button type="submit">Tìm kiếm</button>
+</form>
+<div class="table-wrap"><table>
+<thead><tr><th>ID</th><th>Họ tên</th><th>Tài khoản</th><th>Số điện thoại</th><th>Email</th><th></th></tr></thead>
+@foreach(var c in Model) { <tr><td>@c.CustomerID</td><td>@c.CustomerName</td><td>@c.Username</td>
+<td>@c.CustomerPhone</td><td>@c.CustomerEmail</td>
+<td><a href="@Url.Action("Details",new { id=c.CustomerID })">Chi tiết/đơn hàng</a></td></tr> }
+</table></div>
+<div class="pagination">@for(int i=1;i<=(int)ViewBag.Pages;i++){
+ <a class="page @(i==(int)ViewBag.Page?"active":"")" href="@Url.Action("Index",new { search=ViewBag.Search,sort=ViewBag.Sort,page=i })">@i</a>
+}</div>

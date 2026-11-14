@@ -1,0 +1,17 @@
+@model MyStoreMVC5.Models.Customer
+@{ ViewBag.Title = "Khách hàng " + Model.CustomerName; }
+<h1>@Model.CustomerName</h1>
+<p><strong>Tài khoản:</strong> @Model.Username</p>
+<p><strong>Điện thoại:</strong> @Model.CustomerPhone</p>
+<p><strong>Email:</strong> @Model.CustomerEmail</p>
+<p><strong>Địa chỉ:</strong> @Model.CustomerAddress</p>
+<h2>Đơn hàng của khách</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Mã</th><th>Ngày</th><th>Tổng tiền</th><th>Trạng thái</th><th></th></tr></thead>
+@foreach(var o in Model.Orders.OrderByDescending(x=>x.OrderID)) {
+<tr><td>#@o.OrderID</td><td>@o.OrderDate.ToString("dd/MM/yyyy")</td>
+<td>@o.TotalAmount.ToString("N0") ₫</td><td>@o.PaymentStatus</td>
+<td><a href="@Url.Action("Details","Orders",new { id=o.OrderID })">Chi tiết</a></td></tr>
+}
+</table></div>
+<p><a href="@Url.Action("Index")">← Danh sách khách hàng</a></p>

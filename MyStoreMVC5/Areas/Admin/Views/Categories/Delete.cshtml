@@ -1,0 +1,10 @@
+@model MyStoreMVC5.Models.Category
+@{ ViewBag.Title = "Xóa danh mục"; }
+<div class="form-card">
+<h1>Xóa danh mục</h1><p>Bạn muốn xóa <strong>@Model.CategoryName</strong>?</p>
+<p class="muted">Danh mục đang chứa sản phẩm không thể xóa.</p>
+@using(Html.BeginForm("Delete","Categories",new { id=Model.CategoryID },FormMethod.Post)) {
+ @Html.AntiForgeryToken()<button class="button-danger" type="submit">Xác nhận xóa</button>
+ <a href="@Url.Action("Index")">Hủy</a>
+}
+</div>

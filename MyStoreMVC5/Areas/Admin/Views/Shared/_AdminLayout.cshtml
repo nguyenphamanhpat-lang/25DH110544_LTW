@@ -1,0 +1,37 @@
+@{ var title = ViewBag.Title ?? "Quản trị"; }
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>@title - Quản trị MyStore</title>
+  <link href="@Url.Content("~/Content/site.css")" rel="stylesheet" />
+</head>
+<body>
+<header class="site-header admin-header">
+  <div class="container nav">
+    <a class="brand" href="@Url.Action("Index","Home",new { area="Admin" })">My<span>Store</span> <small>Admin</small></a>
+    <nav class="nav-links">
+      <a href="@Url.Action("Index","Home",new { area="Admin" })">Tổng quan</a>
+      <a href="@Url.Action("Index","Categories",new { area="Admin" })">Danh mục</a>
+      <a href="@Url.Action("Index","Products",new { area="Admin" })">Sản phẩm</a>
+      <a href="@Url.Action("Index","Customers",new { area="Admin" })">Khách hàng</a>
+      <a href="@Url.Action("Index","Orders",new { area="Admin" })">Đơn hàng</a>
+      <a href="@Url.Action("Index","AdminAccounts",new { area="Admin" })">Admin</a>
+      <a href="@Url.Action("Index","Home",new { area="" })">Xem shop</a>
+      @if (Request.IsAuthenticated) {
+        <form class="inline-form" action="@Url.Action("Logout","Account",new { area="" })" method="post">
+          @Html.AntiForgeryToken()<button class="text-button">Đăng xuất</button>
+        </form>
+      }
+    </nav>
+  </div>
+</header>
+<main class="container main">
+  @if (TempData["Notice"] != null) { <div class="notice">@TempData["Notice"]</div> }
+  @if (TempData["Error"] != null) { <div class="error">@TempData["Error"]</div> }
+  @RenderBody()
+</main>
+<footer class="footer"><div class="container">MyStore · Trang quản trị</div></footer>
+</body>
+</html>

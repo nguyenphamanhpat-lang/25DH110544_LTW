@@ -1,0 +1,14 @@
+@model MyStoreMVC5.Models.StoreOrder
+@{ ViewBag.Title = "Đặt hàng thành công"; }
+<div class="form-card">
+  <h1>Đặt hàng thành công!</h1>
+  <p>Mã đơn hàng: <strong>#@Model.OrderID</strong></p>
+  <p>Ngày đặt: @Model.OrderDate.ToString("dd/MM/yyyy")</p>
+  <p>Địa chỉ nhận hàng: @Model.AddressDelivery</p>
+  <p>Tổng tiền: <strong>@Model.TotalAmount.ToString("N0") ₫</strong></p>
+  <p>Trạng thái: <strong>Chờ thanh toán khi nhận hàng</strong></p>
+  <p class="stack">
+    <a class="button" href="@Url.Action("Details","Order",new { id=Model.OrderID })">Xem chi tiết</a>
+    <a class="button button-neutral" href="@Url.Action("OrderHistory","Order")">Lịch sử mua hàng</a>
+  </p>
+</div>

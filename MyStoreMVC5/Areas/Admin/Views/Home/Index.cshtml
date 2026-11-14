@@ -1,0 +1,11 @@
+@model MyStoreMVC5.Models.DashboardVm
+@{ ViewBag.Title = "Tổng quan"; }
+<h1>Tổng quan cửa hàng</h1>
+<p class="muted">Quản lý cửa hàng và theo dõi số liệu nhanh.</p>
+<div class="cards">
+  <div class="stat"><span>Danh mục</span><strong>@Model.Categories</strong><a href="@Url.Action("Index","Categories")">Quản lý danh mục</a></div>
+  <div class="stat"><span>Sản phẩm</span><strong>@Model.Products</strong><a href="@Url.Action("Index","Products")">Quản lý sản phẩm</a></div>
+  <div class="stat"><span>Khách hàng</span><strong>@Model.Customers</strong><a href="@Url.Action("Index","Customers")">Xem khách hàng</a></div>
+  <div class="stat"><span>Đơn hàng</span><strong>@Model.Orders</strong><a href="@Url.Action("Index","Orders")">Quản lý đơn hàng</a></div>
+  <div class="stat"><span>Doanh thu đã thanh toán</span><strong>@Model.PaidRevenue.ToString("N0") ₫</strong></div>
+</div>

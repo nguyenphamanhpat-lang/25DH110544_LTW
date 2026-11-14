@@ -1,0 +1,14 @@
+@model MyStoreMVC5.Models.LoginVm
+@{ ViewBag.Title = "Đăng nhập"; }
+<div class="form-card">
+  <h1>Đăng nhập</h1>
+  @using (Html.BeginForm("Login", "Account", FormMethod.Post)) {
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x=>x.ReturnUrl)
+    @Html.ValidationSummary(true)
+    <div class="field">@Html.LabelFor(x=>x.Username) @Html.TextBoxFor(x=>x.Username, new { autocomplete="username" }) @Html.ValidationMessageFor(x=>x.Username)</div>
+    <div class="field">@Html.LabelFor(x=>x.Password) @Html.PasswordFor(x=>x.Password, new { autocomplete="current-password" }) @Html.ValidationMessageFor(x=>x.Password)</div>
+    <button type="submit">Đăng nhập</button>
+  }
+  <p>Chưa có tài khoản? <a href="@Url.Action("Register","Account")">Đăng ký tại đây</a></p>
+</div>

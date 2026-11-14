@@ -1,0 +1,15 @@
+@model List<MyStoreMVC5.Models.Category>
+@{ ViewBag.Title = "Danh mục sản phẩm"; }
+<div class="stack" style="justify-content:space-between"><h1>Danh mục sản phẩm</h1>
+<a class="button" href="@Url.Action("Create","Categories")">+ Thêm danh mục</a></div>
+@if(!Model.Any()) { <p class="empty">Chưa có danh mục.</p> }
+else {
+<div class="table-wrap"><table><thead><tr><th>ID</th><th>Tên danh mục</th><th>Số sản phẩm</th><th>Tác vụ</th></tr></thead>
+@foreach(var item in Model) { <tr><td>@item.CategoryID</td><td>@item.CategoryName</td><td>—</td>
+<td class="actions">
+<a href="@Url.Action("Details","Categories",new { id=item.CategoryID })">Chi tiết</a>
+<a href="@Url.Action("Edit","Categories",new { id=item.CategoryID })">Sửa</a>
+<a href="@Url.Action("Delete","Categories",new { id=item.CategoryID })">Xóa</a>
+</td></tr> }
+</table></div>
+}

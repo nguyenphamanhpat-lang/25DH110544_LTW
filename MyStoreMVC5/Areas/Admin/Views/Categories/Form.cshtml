@@ -1,0 +1,10 @@
+@model MyStoreMVC5.Models.Category
+@{ bool isEdit = Model.CategoryID > 0; ViewBag.Title = isEdit ? "Sửa danh mục" : "Thêm danh mục"; }
+<div class="form-card">
+<h1>@ViewBag.Title</h1>
+@using(Html.BeginForm(isEdit?"Edit":"Create","Categories",FormMethod.Post)) {
+ @Html.AntiForgeryToken() @Html.HiddenFor(x=>x.CategoryID) @Html.ValidationSummary()
+ <div class="field">@Html.LabelFor(x=>x.CategoryName,"Tên danh mục") @Html.TextBoxFor(x=>x.CategoryName) @Html.ValidationMessageFor(x=>x.CategoryName)</div>
+ <button type="submit">Lưu danh mục</button> <a href="@Url.Action("Index")">Hủy</a>
+}
+</div>

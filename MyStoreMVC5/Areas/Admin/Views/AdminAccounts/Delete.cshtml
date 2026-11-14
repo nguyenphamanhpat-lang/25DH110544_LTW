@@ -1,0 +1,9 @@
+@model MyStoreMVC5.Models.AppUser
+@{ ViewBag.Title="Xóa tài khoản Admin"; }
+<div class="form-card">
+<h1>Xóa tài khoản Admin</h1><p>Bạn chắc chắn muốn xóa <strong>@Model.Username</strong>?</p>
+@using(Html.BeginForm("Delete","AdminAccounts",new { id=Model.Username },FormMethod.Post)) {
+ @Html.AntiForgeryToken()<button class="button-danger" type="submit">Xóa tài khoản</button>
+ <a href="@Url.Action("Index")">Hủy</a>
+}
+</div>

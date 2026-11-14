@@ -1,0 +1,20 @@
+@model List<MyStoreMVC5.Models.StoreOrder>
+@{ ViewBag.Title = "Lịch sử mua hàng"; }
+<h1>Lịch sử mua hàng</h1>
+@if (!Model.Any()) {
+  <div class="empty"><p>Chưa có đơn hàng.</p><a class="button" href="@Url.Action("Index","Home")">Mua sắm ngay</a></div>
+} else {
+  <div class="table-wrap"><table>
+    <thead><tr><th>Mã đơn</th><th>Ngày đặt</th><th>Tổng tiền</th><th>Trạng thái</th><th></th></tr></thead>
+    @foreach(var order in Model) {
+      <tr><td>#@order.OrderID</td><td>@order.OrderDate.ToString("dd/MM/yyyy")</td>
+      <td>@order.TotalAmount.ToString("N0") ₫</td><td>@order.PaymentStatus</td>
+      <td><a href="@Url.Action("Details","Order",new { id=order.OrderID })">Chi tiết</a></td></tr>
+    }
+  </table></div>
+}
+<div class="pagination">
+  @for(int i=1;i<=(int)ViewBag.TotalPages;i++) {
+    <a class="page @(i==(int)ViewBag.Page?"active":"")" href="@Url.Action("OrderHistory","Order",new { page=i })">@i</a>
+  }
+</div>
