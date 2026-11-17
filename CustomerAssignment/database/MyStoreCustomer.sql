@@ -10,6 +10,6 @@ CREATE TABLE OrderDetail(OrderDetailID INT IDENTITY PRIMARY KEY, OrderID INT NOT
 CREATE INDEX IX_Order_Customer_Date ON [Order](CustomerID,OrderDate DESC);
 INSERT INTO [User](Username,PasswordHash,Role) VALUES('customer01','123456','Customer');
 INSERT INTO Customer(Username,CustomerName,CustomerPhone,CustomerEmail,CustomerAddress) VALUES('customer01',N'Khách hàng mẫu','0900000000','customer@example.com',N'TP. Hồ Chí Minh');
-INSERT INTO Product(ProductName,ProductPrice,ProductImage,ProductDescription) VALUES(N'Tai nghe không dây',750000,'earbuds.jpg',N'Tai nghe Bluetooth'),(N'Tai nghe gaming',1250000,'headset.jpg',N'Tai nghe chụp tai'),(N'Đồng hồ thông minh',650000,'watch.jpg',N'Đồng hồ thông minh'),(N'Loa Bluetooth',890000,'speaker.jpg',N'Loa Bluetooth di động');
+INSERT INTO Product(ProductName,ProductPrice,ProductImage,ProductDescription) VALUES(N'Tai nghe không dây',750000,'earbuds.svg',N'Tai nghe Bluetooth'),(N'Tai nghe gaming',1250000,'headset.svg',N'Tai nghe chụp tai'),(N'Đồng hồ thông minh',650000,'watch.svg',N'Đồng hồ thông minh'),(N'Loa Bluetooth',890000,'speaker.svg',N'Loa Bluetooth di động');
 INSERT INTO [Order](CustomerID,OrderDate,TotalAmount,Status,AddressDelivery) VALUES(1,DATEADD(day,-2,GETDATE()),750000,'Delivered',N'TP. Hồ Chí Minh'),(1,DATEADD(day,-1,GETDATE()),1250000,'Shipping',N'TP. Hồ Chí Minh'),(1,GETDATE(),650000,'Processing',N'TP. Hồ Chí Minh');
 INSERT INTO OrderDetail(OrderID,ProductID,Quantity,UnitPrice) VALUES(1,1,1,750000),(2,2,1,1250000),(3,3,1,650000);
