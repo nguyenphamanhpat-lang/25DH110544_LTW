@@ -1,0 +1,8 @@
+using System; using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
+namespace MyStoreCustomer.Models {
+ public class Customer { [Key] public int CustomerID{get;set;} public string Username{get;set;} public string CustomerName{get;set;} public string CustomerPhone{get;set;} public string CustomerEmail{get;set;} public string CustomerAddress{get;set;} public virtual ICollection<StoreOrder> Orders{get;set;} }
+ public class Product { [Key] public int ProductID{get;set;} public string ProductName{get;set;} public decimal ProductPrice{get;set;} public string ProductImage{get;set;} public string ProductDescription{get;set;} }
+ public class StoreOrder { [Key] public int OrderID{get;set;} public int CustomerID{get;set;} public DateTime OrderDate{get;set;} public decimal TotalAmount{get;set;} public string Status{get;set;} public string AddressDelivery{get;set;} public virtual Customer Customer{get;set;} public virtual ICollection<OrderDetail> OrderDetails{get;set;} }
+ public class OrderDetail { [Key] public int OrderDetailID{get;set;} public int OrderID{get;set;} public int ProductID{get;set;} public int Quantity{get;set;} public decimal UnitPrice{get;set;} public virtual StoreOrder Order{get;set;} public virtual Product Product{get;set;} }
+ public class AppUser { [Key] public string Username{get;set;} public string PasswordHash{get;set;} public string Role{get;set;} }
+}
