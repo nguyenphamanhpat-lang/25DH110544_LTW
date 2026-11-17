@@ -1,0 +1,2 @@
+@model RegisterViewModel
+@{ViewBag.Title="Đăng ký";}<h1>Đăng ký tài khoản</h1>@Html.ValidationSummary()<form method="post" class="account">@Html.AntiForgeryToken()<label>Tên đăng nhập</label><input name="Username" required/><label>Mật khẩu</label><input name="Password" type="password" required/><label>Họ tên</label><input name="CustomerName" required/><label>Số điện thoại</label><input name="CustomerPhone"/><label>Email</label><input name="CustomerEmail" type="email"/><label>Địa chỉ</label><input name="CustomerAddress"/><button>Đăng ký</button></form>
