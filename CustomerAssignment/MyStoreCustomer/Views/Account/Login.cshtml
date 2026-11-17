@@ -1,0 +1,2 @@
+@model LoginViewModel
+@{ViewBag.Title="Đăng nhập";}<h1>Đăng nhập</h1>@Html.ValidationSummary()<form method="post" class="account">@Html.AntiForgeryToken()<label>Tên đăng nhập</label><input name="Username" required/><label>Mật khẩu</label><input name="Password" type="password" required/><button>Đăng nhập</button><a href="@Url.Action("Register")">Đăng ký</a></form>
