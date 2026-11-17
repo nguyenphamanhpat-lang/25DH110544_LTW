@@ -1,0 +1,2 @@
+@model StoreOrder
+@{ViewBag.Title="Chi tiết đơn hàng #"+Model.OrderID;}<h1>Chi tiết đơn hàng #@Model.OrderID</h1><section class="order"><p>Ngày đặt: @Model.OrderDate.ToString("dd/MM/yyyy")</p><p>Trạng thái: <b>@Model.Status</b></p><p>Địa chỉ giao hàng: @Model.AddressDelivery</p>@foreach(var d in Model.OrderDetails){<div class="product"><b>@d.Product.ProductName</b><span>@d.Quantity x @d.UnitPrice.ToString("N0") ₫</span></div>}<h2>Tổng thanh toán: @Model.TotalAmount.ToString("N0") ₫</h2></section><a href="@Url.Action("MyOrder")">← Quay lại</a>
